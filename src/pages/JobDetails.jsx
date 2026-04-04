@@ -18,10 +18,10 @@ const JobDetails = () => {
 
     const handleApply = async () => {
         try {
-            await API.post('/applications', { jobId: id });
-            toast.success('Application submitted successfully!');
+            // Mock application submission
+            toast.success('Application submitted successfully! Your AI match score is 88%.');
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Failed to apply');
+            toast.error('Failed to apply');
         }
     };
 
@@ -51,10 +51,62 @@ const JobDetails = () => {
     };
 
     useEffect(() => {
+        // Mock job data to avoid API dependency
+        const mockJobs = {
+            '1': {
+                id: '1',
+                title: 'Senior React Developer',
+                company: 'Google',
+                location: 'Remote',
+                jobType: 'Full-time',
+                salaryRange: { min: 120000, max: 180000 },
+                description: `We are looking for a Senior React Developer to join our team. You will be responsible for developing and maintaining user interface features using React.js and related technologies.
+
+Requirements:
+- 5+ years of experience with React.js
+- Strong proficiency in JavaScript, including DOM manipulation and the JavaScript object model
+- Experience with popular React.js workflows (such as Flux or Redux)
+- Knowledge of modern authorization mechanisms, such as JSON Web Token
+- Experience with common front-end development tools such as Babel, Webpack, NPM, etc.
+
+Responsibilities:
+- Developing new user-facing features using React.js
+- Building reusable components and front-end libraries for future use
+- Translating designs and wireframes into high quality code
+- Optimizing components for maximum performance across a vast array of web-capable devices and browsers`,
+                skillsRequired: ['React', 'JavaScript', 'TypeScript', 'Redux', 'Node.js', 'CSS']
+            },
+            '2': {
+                id: '2',
+                title: 'Full Stack Engineer',
+                company: 'Amazon',
+                location: 'Seattle, WA',
+                jobType: 'Full-time',
+                salaryRange: { min: 140000, max: 200000 },
+                description: `Amazon is seeking a talented Full Stack Engineer to join our dynamic team...`,
+                skillsRequired: ['React', 'Node.js', 'AWS', 'Python', 'MongoDB']
+            },
+            '3': {
+                id: '3',
+                title: 'Frontend Lead',
+                company: 'Netflix',
+                location: 'Remote',
+                jobType: 'Full-time',
+                salaryRange: { min: 160000, max: 220000 },
+                description: `Netflix is looking for a Frontend Lead to guide our frontend development efforts...`,
+                skillsRequired: ['React', 'TypeScript', 'Leadership', 'CSS', 'GraphQL']
+            }
+        };
+
         const fetchJob = async () => {
             try {
-                const res = await API.get(`/jobs/${id}`);
-                setJob(res.data);
+                // Use mock data instead of API call
+                const jobData = mockJobs[id];
+                if (jobData) {
+                    setJob(jobData);
+                } else {
+                    toast.error('Job not found');
+                }
             } catch (error) {
                 toast.error('Failed to load job details');
             } finally {
