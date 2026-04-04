@@ -19,15 +19,25 @@ const ProfileAnalysis = () => {
         }
         setAnalyzing(true);
         try {
+            console.log('Starting AI analysis with file:', file.name);
+            
             const formData = new FormData();
             formData.append('resume', file);
 
+            console.log('Sending request to:', import.meta.env.VITE_API_URL + '/ai/analyze-resume');
+            
             const res = await API.post('/ai/analyze-resume', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
+            
+            console.log('AI Analysis Success:', res.data);
             setResult(res.data);
+            toast.success('AI analysis completed successfully!');
         } catch (error) {
-            toast.error('AI analysis failed');
+            console.error('AI Analysis Error:', error);
+            console.error('Error Response:', error.response?.data);
+            console.error('Error Status:', error.response?.status);
+            toast.error(`AI analysis failed: ${error.response?.data?.message || error.message}`);
         } finally {
             setAnalyzing(false);
         }
