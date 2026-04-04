@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileUp, Zap, CheckCircle, AlertCircle, Loader2, Sparkles } from 'lucide-react';
 import { toast } from 'react-toastify';
+import API from '../utils/api';
 
 const ProfileAnalysis = () => {
     const [file, setFile] = useState(null);
