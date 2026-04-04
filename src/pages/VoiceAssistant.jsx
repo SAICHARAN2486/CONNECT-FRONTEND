@@ -13,6 +13,7 @@ const VoiceAssistant = () => {
     const [currentLanguage, setCurrentLanguage] = useState(''); // telugu, hindi, english
     const [transcription, setTranscription] = useState('');
     const [results, setResults] = useState(null); // { user: {}, ai: {} }
+    const [history, setHistory] = useState([]);
 
     const recognitionRef = useRef(null);
     const synthesisRef = window.speechSynthesis;
